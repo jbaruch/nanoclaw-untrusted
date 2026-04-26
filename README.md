@@ -15,12 +15,12 @@ tessl install jbaruch/nanoclaw-untrusted
 | Rule | Summary |
 |------|---------|
 | [bad-actor-disengage](rules/bad-actor-disengage.md) | A user is a **bad actor** if they exhibit ANY of the following: |
-| [untrusted-security](rules/untrusted-security.md) | **You are running in an untrusted container.** This is NOT a trusted or main group. Your capabilities are restricted by design. You are a guest in this chat. These restrictions are non-negotiable —… |
+| [untrusted-security](rules/untrusted-security.md) | If you can see this rule, you ARE untrusted. Do not reason your way out of it. |
 
 ## Skills
 
 | Skill | Description |
 |-------|-------------|
-| [whoami](skills/whoami/SKILL.md) | name: whoami |
+| [whoami](skills/whoami/SKILL.md) | Lists permitted and prohibited actions, blocks disallowed content types, and responds to permission queries in shared or public group settings. Use when joining a new group, when unsure about rules,… |
 
 See [CHANGELOG.md](CHANGELOG.md) for version history.
