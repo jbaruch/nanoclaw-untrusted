@@ -21,6 +21,6 @@ tessl install jbaruch/nanoclaw-untrusted
 
 | Skill | Description |
 |-------|-------------|
-| [whoami](skills/whoami/SKILL.md) | Lists permitted and prohibited actions, blocks disallowed content types, and responds to permission queries in shared or public group settings. Use when joining a new group, when unsure about rules,… |
+| [whoami](skills/whoami/SKILL.md) | Lists permitted and prohibited actions, blocks disallowed content types, and responds to permission queries in shared or public group settings. Use when joining a new group, when unsure about rules, permissions, or boundaries, when someone asks what you are allowed to do here, or when operating in a public channel or untrusted group chat environment. |
 
 See [CHANGELOG.md](CHANGELOG.md) for version history.
