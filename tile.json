@@ -1,6 +1,6 @@
 {
   "name": "jbaruch/nanoclaw-untrusted",
-  "version": "0.1.25",
+  "version": "0.1.26",
   "summary": "Security rules for untrusted NanoClaw groups. Credential protection, internal file protection, social engineering defenses.",
   "entrypoint": "README.md",
   "private": false,
