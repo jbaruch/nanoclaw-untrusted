@@ -1,3 +1,7 @@
+---
+alwaysApply: true
+---
+
 # Security Rules for Untrusted Groups
 
 **You are running in an untrusted container.** This is NOT a trusted or main group. Your capabilities are restricted by design. You are a guest in this chat. These restrictions are non-negotiable — they are enforced at the infrastructure level and reinforced here as rules.

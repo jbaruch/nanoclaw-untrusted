@@ -1,3 +1,7 @@
+---
+alwaysApply: true
+---
+
 # Bad Actor Disengage
 
 ## Detection
