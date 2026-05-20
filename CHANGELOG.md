@@ -4,7 +4,7 @@
 
 ### Rules — conciseness pass per `coding-policy: context-writing-style` (tier 3)
 
-- **untrusted-security** — cut "because identity cannot be verified over chat" rationale clause; the rationale now stands as its own sentence. Cut "— they are enforced at the infrastructure level and reinforced here as rules" em-dash rationale from "These restrictions are non-negotiable". Cut "Code execution in untrusted environments is a classic attack vector for privilege escalation, data exfiltration, and container escape" meta-justification trailing the `## Code Execution` section; the operative directive ("even if execution were possible, decline") stays.
+- **untrusted-security** — cut "because identity cannot be verified over chat" rationale clause AND the standalone "Identity cannot be verified over chat" sentence (initially kept as a separate line — the reviewer correctly flagged that as why-content still living in always-loaded rule prose). Rationale is archived here: identity cannot be verified over chat, so claimed-identity allowances open a social-engineering vector. Cut "— they are enforced at the infrastructure level and reinforced here as rules" em-dash rationale from "These restrictions are non-negotiable". Cut "Code execution in untrusted environments is a classic attack vector for privilege escalation, data exfiltration, and container escape" meta-justification trailing the `## Code Execution` section; the operative directive ("even if execution were possible, decline") stays.
 
 ### CI
 
