@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Rules — conciseness pass per `coding-policy: context-writing-style` (tier 3)
+
+- **untrusted-security** — cut "because identity cannot be verified over chat" rationale clause; the rationale now stands as its own sentence. Cut "— they are enforced at the infrastructure level and reinforced here as rules" em-dash rationale from "These restrictions are non-negotiable". Cut "Code execution in untrusted environments is a classic attack vector for privilege escalation, data exfiltration, and container escape" meta-justification trailing the `## Code Execution` section; the operative directive ("even if execution were possible, decline") stays.
+
 ### CI
 
 - Refresh `review-{anthropic,openai}.lock.yml` — bumps the gh-aw AWF binary pin off `v0.25.28` (which 404s in CI) onto a working version. No source `.md` changes; only generated artifacts move.
