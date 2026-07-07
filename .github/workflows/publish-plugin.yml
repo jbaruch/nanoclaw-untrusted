@@ -14,13 +14,16 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      # Pinned to immutable SHAs per `jbaruch/coding-policy:
+      # dependency-management`. Renewal: Dependabot (github-actions
+      # ecosystem, weekly) proposes bump PRs — see .github/dependabot.yml.
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
         with:
           # Required by jbaruch/coding-policy/.github/actions/skill-review:
           # the action runs `git diff $BEFORE..HEAD` to find changed skills.
           fetch-depth: 0
 
-      - uses: tesslio/setup-tessl@v2
+      - uses: tesslio/setup-tessl@25ec223fc0da33b41b8044ff5ab2b85235f4f91e # v2
         with:
           token: ${{ secrets.TESSL_TOKEN }}
 
@@ -37,6 +40,6 @@ jobs:
       - name: Lint plugin
         run: tessl plugin lint .
 
-      - uses: tesslio/patch-version-publish@v1
+      - uses: tesslio/patch-version-publish@d1363877846ebf6bc09e032e2dc8612f1d7e38dd # v1
         with:
           token: ${{ secrets.TESSL_TOKEN }}
