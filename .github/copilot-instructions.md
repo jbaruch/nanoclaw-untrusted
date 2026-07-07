@@ -2,16 +2,16 @@
 
 ## What this repository is
 
-This is a **Tessl tile** published as `jbaruch/nanoclaw-untrusted` on the Tessl registry. A Tessl tile is a packaged bundle of AI-agent rules and skills that is installed into AI runtimes (specifically the NanoClaw system) via `tessl install jbaruch/nanoclaw-untrusted`.
+This is a **Tessl plugin** published as `jbaruch/nanoclaw-untrusted` on the Tessl registry. A Tessl plugin is a packaged bundle of AI-agent rules and skills that is installed into AI runtimes (specifically the NanoClaw system) via `tessl install jbaruch/nanoclaw-untrusted`.
 
-The tile's purpose is to enforce a security posture for AI agents operating inside **untrusted NanoClaw group chats** — preventing credential leakage, code execution, social engineering, and other attacks by users who have not been vetted.
+The plugin's purpose is to enforce a security posture for AI agents operating inside **untrusted NanoClaw group chats** — preventing credential leakage, code execution, social engineering, and other attacks by users who have not been vetted.
 
 ---
 
 ## Repository layout
 
 ```
-tile.json                        # Tessl tile manifest (name, version, entrypoint, rules, skills)
+.tessl-plugin/plugin.json        # Tessl plugin manifest (name, version, rules, skills)
 README.md                        # Human-readable index; rule summaries are auto-extracted first paragraphs
 CHANGELOG.md                     # Required by jbaruch/coding-policy: context-artifacts
 rules/
@@ -22,7 +22,7 @@ skills/
     SKILL.md                     # Skill: etiquette + what the agent can/cannot do in an untrusted group
 .github/
   workflows/
-    publish-tile.yml             # CI: skill review + tile lint + auto patch-publish on merge to main
+    publish-plugin.yml           # CI: skill review + plugin lint + auto patch-publish on merge to main
     review-openai.md             # gh-aw workflow: PR review by OpenAI-family model
     review-anthropic.md          # gh-aw workflow: PR review by Anthropic-family model
     review-openai.lock.yml       # Generated lock file — do not edit manually
@@ -36,11 +36,11 @@ skills/
 
 ## File formats and conventions
 
-### `tile.json`
-- The manifest for the Tessl tile.
+### `.tessl-plugin/plugin.json`
+- The manifest for the Tessl plugin.
 - **Do not manually bump `version`** — `tesslio/patch-version-publish@v1` auto-increments it on every merge to `main`.
-- `rules` keys map to files under `rules/`; `skills` keys map to `skills/<name>/SKILL.md`.
-- `entrypoint` is `README.md` per `jbaruch/coding-policy: context-artifacts`.
+- `rules` is an array of rule-file paths under `rules/`; `skills` is an array of skill directory paths.
+- `README.md` is the plugin's entrypoint implicitly per `jbaruch/coding-policy: context-artifacts` — no `entrypoint` field exists in the plugin.json schema.
 
 ### Rule files (`rules/*.md`)
 - YAML front-matter must include `alwaysApply: true`.
@@ -52,7 +52,7 @@ skills/
 - Skills are quality-gated at 85/100 by `tessl skill review` in CI. Changes that drop the score below 85 will fail the build.
 
 ### `README.md`
-- The rules table must stay in sync with `tile.json` and the rule files.
+- The rules table must stay in sync with `.tessl-plugin/plugin.json` and the rule files.
 - Rule summaries are first-paragraph excerpts from each rule file — update them in the rule file, not in the README directly.
 
 ### `CHANGELOG.md`
@@ -63,9 +63,9 @@ skills/
 
 ## CI / automated workflows
 
-### `publish-tile.yml` (runs on push to `main` and `workflow_dispatch`)
+### `publish-plugin.yml` (runs on push to `main` and `workflow_dispatch`)
 1. Runs `tessl skill review --threshold 85` on every skill under `skills/*/`.
-2. Runs `tessl tile lint .` to validate `tile.json`.
+2. Runs `tessl plugin lint .` to validate `.tessl-plugin/plugin.json`.
 3. Calls `tesslio/patch-version-publish@v1` to bump patch version and publish to the Tessl registry.
    - Secrets required: `TESSL_TOKEN`.
 
@@ -83,12 +83,12 @@ skills/
 ### Adding or updating a rule
 1. Edit the file in `rules/`. Preserve `alwaysApply: true` in the front-matter.
 2. If the first paragraph changed significantly, the README rule summary will need updating too.
-3. If adding a brand-new rule file, add an entry to `tile.json` under `rules` and add a row to the README table.
+3. If adding a brand-new rule file, add its path to the `rules` array in `.tessl-plugin/plugin.json` and add a row to the README table.
 4. Update `CHANGELOG.md`.
 
 ### Adding or updating a skill
 1. Edit `skills/<name>/SKILL.md`. Preserve `name` and `description` front-matter.
-2. If adding a new skill, add it to `tile.json` under `skills` and add a row to the README table.
+2. If adding a new skill, add its directory to the `skills` array in `.tessl-plugin/plugin.json` and add a row to the README table.
 3. Run `tessl skill review --threshold 85 skills/<name>/SKILL.md` locally before opening a PR to catch quality failures early.
 4. Update `CHANGELOG.md`.
 
@@ -101,5 +101,5 @@ skills/
 ## Known issues and workarounds
 
 - **`--strict-mcp-config` on Anthropic reviewer**: The Anthropic gh-aw workflow passes `--strict-mcp-config` to Claude Code to prevent it from auto-loading the consumer repo's `.mcp.json`. Without this flag, Claude attempts to launch any stdio MCP server declared in `.mcp.json` inside the awf sandbox, where the binary is not available, killing the job. Requires gh-aw ≥ v0.71.0 and Claude Code CLI ≥ 2.1.x. See `review-anthropic.md` engine args.
-- **`tessl install` path in gh-aw sandbox**: The policy tile must be installed to `/tmp/gh-aw/coding-policy/` (not workspace-local or `--global`) because `actions/checkout`'s `clean: true` wipes untracked workspace files and the awf sandbox does not mount `${HOME}`. See `steps:` comments in both review workflows.
+- **`tessl install` path in gh-aw sandbox**: The policy plugin must be installed to `/tmp/gh-aw/coding-policy/` (not workspace-local or `--global`) because `actions/checkout`'s `clean: true` wipes untracked workspace files and the awf sandbox does not mount `${HOME}`. See `steps:` comments in both review workflows.
 - **Lock file merge conflicts**: `.gitattributes` sets `merge=ours` on `*.lock.yml` so lock files never produce merge conflicts — the branch version always wins.

@@ -1,4 +1,4 @@
-name: Review & Publish Tile
+name: Review & Publish Plugin
 
 permissions:
   id-token: write
@@ -25,7 +25,7 @@ jobs:
           token: ${{ secrets.TESSL_TOKEN }}
 
       # Reviews only the skills whose files changed in this push, instead
-      # of every skill in the tile every time. Action lives in
+      # of every skill in the plugin every time. Action lives in
       # jbaruch/coding-policy so improvements land once and propagate
       # to every consumer plugin. Pinned to an immutable SHA per
       # `jbaruch/coding-policy: dependency-management`.
@@ -34,8 +34,8 @@ jobs:
         with:
           threshold: '85'
 
-      - name: Lint tile
-        run: tessl tile lint .
+      - name: Lint plugin
+        run: tessl plugin lint .
 
       - uses: tesslio/patch-version-publish@v1
         with:
