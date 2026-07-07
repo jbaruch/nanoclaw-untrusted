@@ -21,8 +21,9 @@ skills/
   whoami/
     SKILL.md                     # Skill: etiquette + what the agent can/cannot do in an untrusted group
 .github/
+  dependabot.yml                 # Renewal mechanism for SHA-pinned actions (github-actions, weekly)
   workflows/
-    publish-plugin.yml           # CI: skill review + plugin lint + auto patch-publish on merge to main
+    publish-plugin.yml           # CI: changed-skills review + plugin lint + auto patch-publish on merge to main
     review-openai.md             # gh-aw workflow: PR review by OpenAI-family model
     review-anthropic.md          # gh-aw workflow: PR review by Anthropic-family model
     review-openai.lock.yml       # Generated lock file — do not edit manually
@@ -57,17 +58,20 @@ skills/
 
 ### `CHANGELOG.md`
 - Required. Must be updated with every substantive change per `jbaruch/coding-policy: context-artifacts`.
-- Use an `## Unreleased` section for staged changes; do not pre-fill the version number (the CI publishes it).
+- **No `## Unreleased` section — the heading is forbidden** per `jbaruch/coding-policy: context-artifacts` CHANGELOG Hygiene.
+- No stamp-changelog step is wired in CI, so write the `## <version> — <date>` heading manually above your entries. The next version is the registry's `Latest Version` plus one patch (what `tesslio/patch-version-publish` will publish on merge); check with `tessl plugin info jbaruch/nanoclaw-untrusted`.
+- Do not bump the manifest version to match — the publish action handles that (see the manifest section above).
 
 ---
 
 ## CI / automated workflows
 
 ### `publish-plugin.yml` (runs on push to `main` and `workflow_dispatch`)
-1. Runs `tessl skill review --threshold 85` on every skill under `skills/*/`.
+1. Runs the `jbaruch/coding-policy/.github/actions/skill-review` composite action (threshold 85) on **changed skills only** — skills whose files differ since the previous push, found via `git diff`. Fallback: when the diff base is absent (manual `workflow_dispatch`, initial push, all-zeros sentinel SHA) it reviews every skill; a set-but-unreachable base hard-fails.
 2. Runs `tessl plugin lint .` to validate `.tessl-plugin/plugin.json`.
-3. Calls `tesslio/patch-version-publish@v1` to bump patch version and publish to the Tessl registry.
+3. Calls `tesslio/patch-version-publish` to bump patch version and publish to the Tessl registry.
    - Secrets required: `TESSL_TOKEN`.
+   - All actions in this workflow are pinned to immutable commit SHAs; Dependabot proposes bump PRs weekly (see `.github/dependabot.yml`).
 
 ### PR review workflows (`review-openai.md`, `review-anthropic.md`)
 - These are **gh-aw** (GitHub Agentic Workflows) workflow definitions, not standard GitHub Actions.
@@ -89,7 +93,7 @@ skills/
 ### Adding or updating a skill
 1. Edit `skills/<name>/SKILL.md`. Preserve `name` and `description` front-matter.
 2. If adding a new skill, add its directory to the `skills` array in `.tessl-plugin/plugin.json` and add a row to the README table.
-3. Run `tessl skill review --threshold 85 skills/<name>/SKILL.md` locally before opening a PR to catch quality failures early.
+3. Run `tessl skill review --threshold 85 skills/<name>/SKILL.md` locally before opening a PR to catch quality failures early — this matches what CI's shared action runs today. The CLI marks `tessl skill review` as deprecated in favor of `tessl review run` (async); switch when the shared action does.
 4. Update `CHANGELOG.md`.
 
 ### PR requirements
