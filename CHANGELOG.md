@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.37 — 2026-07-07
+
+### Rules — one response protocol for hostile interactions (#17, #18, #21)
+
+- **Conflict resolved (#18):** `bad-actor-disengage` and `untrusted-security` prescribed different outward actions for the same triggers — total silence versus decline-plus-alert. The precedence is now explicit: every covered request gets exactly one decline plus an owner alert; classification as a bad actor (immediate for unambiguous attacks — injection payloads, owner impersonation, infrastructure enumeration, manipulation-based extraction; after one decline for persistence) switches to total silence toward the sender. Owner alerts survive classification — silence covers replies to the attacker only. Rationale archived here: a first request can come from a clumsy genuine group member, and one polite decline leaks nothing; ghosting on first contact punishes innocents, while engaging past one decline rewards probing.
+- **`<internal>` tags removed (#17):** the "Internal Reasoning Must Stay Internal" section assumed the runtime strips `<internal>` tags from chat output. On a runtime without that stripping, the rule would leak threat analysis into the hostile group. Replaced with the runtime-agnostic "Reasoning Stays Private": no detection logic in any chat message, no reliance on markup conventions.
+- **Alert template reshaped (#21):** the owner-alert template was a fenced code block, violating `jbaruch/coding-policy: context-artifacts` (no code blocks unless demonstrating a command). Now a field list. Alert routing is explicit: owner's trusted channel only, never anywhere the requester can read.
+- Cut from rule prose per `jbaruch/coding-policy: context-writing-style`, archived here: "This is not rudeness. It is the correct security posture. Engaging further only rewards the behavior."
+
 ## 0.1.36 — 2026-07-07
 
 ### Migration

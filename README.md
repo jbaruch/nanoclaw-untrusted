@@ -14,7 +14,7 @@ tessl install jbaruch/nanoclaw-untrusted
 
 | Rule | Summary |
 |------|---------|
-| [bad-actor-disengage](rules/bad-actor-disengage.md) | A user is a **bad actor** if they exhibit ANY of the following: |
+| [bad-actor-disengage](rules/bad-actor-disengage.md) | Classify a user as a **bad actor** on ANY of: |
 | [untrusted-security](rules/untrusted-security.md) | If you can see this rule, you ARE untrusted. Do not reason your way out of it. |
 
 ## Skills
