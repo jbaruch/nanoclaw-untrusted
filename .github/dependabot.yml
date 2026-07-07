@@ -1,0 +1,18 @@
+# Renewal mechanism for the SHA-pinned actions in
+# .github/workflows/publish-plugin.yml per `jbaruch/coding-policy:
+# dependency-management`. Dependabot proposes a reviewed bump PR per new
+# release; pins stay immutable between bumps. Matches the sibling
+# nanoclaw-core config. Note: the gh-aw lock files
+# (review-*.lock.yml) also live under .github/workflows/ and pin their
+# own actions; Dependabot PRs touching lock files are regenerated via
+# `gh aw compile` rather than merged directly.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    commit-message:
+      prefix: chore(ci)
+    labels:
+      - dependencies

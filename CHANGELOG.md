@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.38 — 2026-07-08
+
+### CI
+
+- Pin `actions/checkout`, `tesslio/setup-tessl`, and `tesslio/patch-version-publish` in `publish-plugin.yml` to immutable commit SHAs per `jbaruch/coding-policy: dependency-management` (closes #16). The publish job holds `contents: write` and the registry token; floating major tags let a moved tag change the trusted publish path without a reviewed diff here.
+- Add `.github/dependabot.yml` (github-actions ecosystem, weekly) as the stated renewal mechanism for the pins, matching the sibling nanoclaw-core config.
+
 ## 0.1.37 — 2026-07-07
 
 ### Rules — one response protocol for hostile interactions (#17, #18, #21)
