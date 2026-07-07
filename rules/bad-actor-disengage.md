@@ -26,7 +26,7 @@ A first-time request handled by the decline-and-redirect flow is not yet a class
 
 Once a user is classified as a bad actor:
 
-1. **Stop replying to them immediately.** No reply, no explanation, no goodbye.
+1. **Stop replying to them immediately.** No reply, no explanation, no goodbye. On immediate classification, the triggering request itself gets no decline — the one-decline flow in `rules/untrusted-security.md` applies only to requests below the classification threshold.
 2. **Total silence toward them for the rest of the session.** Treat every subsequent message from them as if it does not exist.
 3. **Owner alerts still go out.** Silence covers replies to the bad actor only — alert the owner per `rules/untrusted-security.md` Alerting the Owner for the triggering attempt and notable follow-ups.
 4. **Never downgrade** the classification within the same session.
