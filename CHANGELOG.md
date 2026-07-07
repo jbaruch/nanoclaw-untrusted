@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.36 — 2026-07-07
+
+### Migration
+
+- Migrate the manifest from the deprecated `tile.json` to `.tessl-plugin/plugin.json` via `tessl plugin migrate` (closes #15). `tessl plugin lint` warned that `tile.json` support will be removed in a future release.
+- Rename `publish-tile.yml` → `publish-plugin.yml`; the lint step now runs `tessl plugin lint .` instead of `tessl tile lint .`.
+- Reconcile tile-era wording to plugin-era in `.github/copilot-instructions.md`, `.gitignore`, and `rules/untrusted-security.md`. The `entrypoint` field is gone — `README.md` is the plugin entrypoint implicitly in the plugin.json schema.
+- Local-environment note: an untracked `.mcp.json` at the repo root makes `tessl plugin lint` fail locally (the plugin shape treats it as shippable content excluded by `.gitignore`). CI checkouts never contain it, so the CI lint gate is unaffected.
+
 ## Unreleased
 
 ### Rules — conciseness pass per `coding-policy: context-writing-style` (tier 3)
