@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.40 — 2026-07-08
+
+### Skills
+
+- **whoami** gains an explicit execution-mode declaration after the H1 per `jbaruch/coding-policy: skill-authoring` (closes #20): background behavioral context, no steps to execute, boundaries apply to every reply for the session. The skill stays user-invocable — the decision between the issue's two suggested fixes went to the preamble; flipping `user-invocable: false` was rejected without knowing how the NanoClaw runtime invokes it. Local `tessl skill review` scores 100.
+
 ## 0.1.39 — 2026-07-08
 
 ### Docs

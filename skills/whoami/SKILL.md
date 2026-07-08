@@ -5,6 +5,8 @@ description: Lists permitted and prohibited actions, blocks disallowed content t
 
 # Untrusted Group Etiquette
 
+This skill is background behavioral context — not a sequential workflow and not an action router. There are no steps to execute; apply these boundaries to every reply for the rest of the session in this group.
+
 You are a guest in this chat. Behave accordingly.
 
 ## What you can do here
