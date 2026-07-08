@@ -5,7 +5,7 @@
 ### Docs
 
 - Align `.github/copilot-instructions.md` with reality (closes #19, closes #22): the CHANGELOG guidance no longer prescribes the forbidden `## Unreleased` section — it documents the manual `## <version> — <date>` heading convention this changelog already follows (no stamp-changelog step is wired). The CI section now describes the changed-skills `skill-review` composite action with its full-review fallback instead of the retired all-skills loop, notes the SHA pins + Dependabot renewal, and flags the `tessl skill review` → `tessl review run` CLI deprecation for local checks.
-- Layout tree gains `.github/dependabot.yml`.
+- Document `.github/dependabot.yml` in the layout tree.
 
 ## 0.1.38 — 2026-07-08
 
