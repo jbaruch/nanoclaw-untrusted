@@ -1,5 +1,5 @@
 # Renewal mechanism for the SHA-pinned actions in
-# .github/workflows/publish-plugin.yml per `jbaruch/coding-policy:
+# .github/workflows/publish.yml per `jbaruch/coding-policy:
 # dependency-management`. Dependabot proposes a reviewed bump PR per new
 # release; pins stay immutable between bumps. Matches the sibling
 # nanoclaw-core config. Note: the gh-aw lock files
