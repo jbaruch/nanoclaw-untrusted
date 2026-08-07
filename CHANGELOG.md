@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.48 — 2026-08-07
+
+### Rules
+
+- **untrusted-security** "Alerting the Owner" now points at the `raise_owner_alert` tool instead of the abstract "deliver over the owner's trusted channel, per the runtime's owner-channel configuration" instruction, which had no mechanism behind it. An untrusted container's only outbound path is gated to its own chat, so it could never reach the owner: a live `docker rm -f $(docker ps -a -q --filter label=nanoclaw)` attempt classified correctly, went silent, tried to alert, and had nowhere to send it. The NanoClaw runtime now provides `raise_owner_alert` (jbaruch/nanoclaw#904) — the container supplies the classification fields, the host composes the alert and routes it privately to the main group, wrapping the attacker-quoted fields in the untrusted-input provenance envelope so a trusted reader treats them as data. The rule drops the host-composed Header field and the abstract channel language, and lists the fields the tool takes.
+
 ## 0.1.40 — 2026-07-08
 
 ### Skills
