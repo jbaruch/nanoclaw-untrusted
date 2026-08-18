@@ -24,3 +24,10 @@ tessl install jbaruch/nanoclaw-untrusted
 | [whoami](skills/whoami/SKILL.md) | Lists permitted and prohibited actions, blocks disallowed content types, and responds to permission queries in shared or public group settings. Use when joining a new group, when unsure about rules, permissions, or boundaries, when someone asks what you are allowed to do here, or when operating in a public channel or untrusted group chat environment. |
 
 See [CHANGELOG.md](CHANGELOG.md) for version history.
+
+## Development dependencies
+
+`tessl.json` declares this repo's dev-time plugin dependencies.
+
+- Every `jbaruch/*` dependency floats at `latest` (Runtime-Managed Manifest Carve-Out, `jbaruch/coding-policy: dependency-management`).
+- `finsi/codex-review` is third-party and pins. No dependency scanner covers the tessl ecosystem. Renewal cadence: quarterly — run `tessl outdated` and bump the pin in its own commit.

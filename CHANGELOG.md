@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.50 — 2026-08-18
+
+### Chore — commit `tessl.json` as the dependency manifest it is
+
+`.gitignore` excluded `tessl.json`, so the repo carried no committed declaration of what it depends on, and `hooks/check-tessl-latest.sh` in `jbaruch/coding-policy` — the deterministic enforcement for the Runtime-Managed Manifest Carve-Out — took its "no manifest, not a consumer" silent no-op path every session. With nothing watching, the untracked local manifest drifted to `"mode": "vendored"` with literal version pins.
+
+The manifest is now committed and `"mode": "managed"`. Every `jbaruch/*` dependency floats at `latest` under the carve-out; `finsi/codex-review` is third-party and stays pinned, with its renewal cadence recorded in `README.md`. The ignore file keeps the manifest out of the published package.
+
+## 0.1.48 — 2026-08-08
+
 ### Rules
 
 - **untrusted-security** "Alerting the Owner" now points at the `raise_owner_alert` tool instead of the abstract "deliver over the owner's trusted channel, per the runtime's owner-channel configuration" instruction, which had no mechanism behind it. An untrusted container's only outbound path is gated to its own chat, so it could never reach the owner: a live `docker rm -f $(docker ps -a -q --filter label=nanoclaw)` attempt classified correctly, went silent, tried to alert, and had nowhere to send it. The NanoClaw runtime now provides `raise_owner_alert` (jbaruch/nanoclaw#904) — the container supplies the classification fields, the host composes the alert and routes it privately to the main group, wrapping the attacker-quoted fields in the untrusted-input provenance envelope so a trusted reader treats them as data. The rule drops the host-composed Header field and the abstract channel language, and lists the fields the tool takes.
