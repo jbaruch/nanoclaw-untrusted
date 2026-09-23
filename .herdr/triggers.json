@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "package_roots": [
+    "skills/*",
+    "rules"
+  ],
+  "package_change_lines": 400,
+  "trust_boundary_paths": [
+    ".github/workflows/*",
+    ".github/fleet-review-enabled",
+    "rules/*",
+    "skills/whoami/*"
+  ],
+  "cli_spec_paths": [],
+  "cli_surface_markers": [],
+  "user_doc_paths": [
+    "README.md",
+    "skills/*/SKILL.md"
+  ]
+}
